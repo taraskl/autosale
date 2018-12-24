@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+    <h1>Autos</h1>
+
+    {% for auto in autos %}
+        <li>
+                Auto #{{ auto.id }}: {{ auto.mark }} to {{ auto.model }}, {{ auto.category }}
+        </li>
+    {% endfor %}
+    </body>
+</html>
