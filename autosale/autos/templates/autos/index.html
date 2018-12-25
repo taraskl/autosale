@@ -1,15 +1,68 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
+        <title>Autosale</title>
+        <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+        </style>
     </head>
     <body>
-    <h1>Autos</h1>
-
-    {% for auto in autos %}
-        <li>
-                Auto #{{ auto.id }}: {{ auto.mark }} to {{ auto.model }}, {{ auto.category }}
-        </li>
-    {% endfor %}
+        <h1>Autos:</h1>
+        <table style="width:80%">
+          <tr>
+            <th>ID</th>
+            <th>Mark
+                <form action="{% url 'mark' %}" method="get">
+                    <input type="submit" value="Sort" />
+                </form>
+            </th> 
+            <th>Model
+                <form action="{% url 'model' %}" method="get">
+                    <input type="submit" value="Sort" />
+                </form>
+            </th>
+            <th>Category
+                <form action="{% url 'category' %}" method="get">
+                    <input type="submit" value="Sort" />
+                </form>
+            </th>
+            <th>Price
+                <form action="{% url 'price' %}" method="get">
+                    <input type="submit" value="Sort" />
+                </form>
+            </th>    
+          </tr>
+              {% for auto in autos %}
+              <tr>
+                <td>{{ auto.id }}</td>
+                <td>{{ auto.mark }}</td> 
+                <td>{{ auto.model }}</td>
+                <td>{{ auto.category }}</td>
+                <td>{{ auto.price }}</td>
+              </tr>
+              {% endfor %} 
+        </table>
+        </br>
+        <form action="{% url 'sort_by_year' %}" method="post">
+            {% csrf_token %}
+            Sort by year, from: 
+            <select name="from">
+                {% for auto in autos %}
+                    <option value="{{ auto.year }}">{{ auto.year }}</option>
+                {% endfor %}
+            </select>
+            to: 
+            <select name="to">
+                {% for auto in autos %}
+                    <option value="{{ auto.year }}">{{ auto.year }}</option>
+                {% endfor %}
+            </select>   
+            <input type="submit" value="Sort" />
+        </form></br>
+        <form action="{% url 'reset' %}" method="get">
+            <input type="submit" value="Reset" />
+        </form>
     </body>
 </html>
