@@ -32,7 +32,8 @@ def category(request):
     context = {
         "autos": Autos.objects.order_by('category'),
     }
-    return render(request, "autos/index.html", context)     
+    return render(request, "autos/index.html", context)  
+       
 
 def sort_by_year(request):
     try:
